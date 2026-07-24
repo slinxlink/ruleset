@@ -3,6 +3,8 @@
   <h1>SLINX ruleset</h1>
   <p>为 sing-box 核心提供的 .srs 格式规则集</p>
 
+  [![Release](https://img.shields.io/github/v/release/slinxlink/ruleset)](https://github.com/slinxlink/ruleset/releases)
+  [![Downloads](https://img.shields.io/github/downloads/slinxlink/ruleset/total.svg)](https://github.com/slinxlink/ruleset/releases/latest)
   [![License](https://img.shields.io/badge/license-MIT-blue.svg?longCache=true)](LICENSE)
 </div>
 
@@ -16,7 +18,7 @@
 
 ## 规则集分组说明
 
-`site/` 目录下每个 `.srs` 文件都是按主题打包的域名规则集，来源于 sing-box 官方 geosite 仓库对应的 tag，具体包含的 tag 如下：
+`ruleset/` 目录下每个 `.srs` 文件都是按主题打包的域名规则集，来源于 sing-box 官方 geosite 仓库对应的 tag，具体包含的 tag 如下：
 
 | 文件 | 包含 tag |
 | --- | --- |
@@ -28,7 +30,9 @@
 | `google.srs` | google |
 | `microsoft.srs` | bing microsoft onedrive |
 
-`ip/` 目录下则是基于 IP 段匹配的 geoip 规则集（如 `cn.srs`），用于国内/国外 IP 归属判断。
+`geo/site/` 目录下为从官方 geosite 精选的单项规则集，用于域名归属判断。
+
+`geo/ip/` 目录下为完整的 geoip 规则集（如 `cn.srs`），用于国内/国外 IP 归属判断。
 
 ## 社区
 

@@ -1,5 +1,11 @@
-# 生成工具
-tool/
+# 生成脚本
+ruleset.sh
+
+# 原文件
+source/
+
+# 压缩文件
+*.zip
 
 # macOS 系统文件
 .DS_Store
