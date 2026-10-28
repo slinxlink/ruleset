@@ -1,0 +1,51 @@
+name: Update
+
+on:
+  schedule:
+    # 每月 13 日 13:13（上海时间），比 sing-geoip 的 12 日晚一天
+    - cron: '13 5 13 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install sing-box
+        run: |
+          mkdir -p "$RUNNER_TEMP/sing-box"
+          gh release download --repo SagerNet/sing-box \
+            --pattern 'sing-box-*-linux-amd64.tar.gz' --dir "$RUNNER_TEMP"
+          tar -xzf "$RUNNER_TEMP"/sing-box-*-linux-amd64.tar.gz \
+            -C "$RUNNER_TEMP/sing-box" --strip-components=1
+          echo "SINGBOX=$RUNNER_TEMP/sing-box/sing-box" >> "$GITHUB_ENV"
+
+      - name: Update
+        run: ./update.sh
+
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add geo ruleset
+          if ! git diff --cached --quiet; then
+            git commit -m "update $(TZ=Asia/Shanghai date +%Y%m%d)"
+            git push
+          fi
+
+      - name: Release
+        run: |
+          TAG=$(TZ=Asia/Shanghai date +%Y%m%d)
+          gh release delete "$TAG" --cleanup-tag --yes || true
+          gh release create "$TAG" dist/*.zip \
+            --target "$(git rev-parse HEAD)" \
+            --title "$TAG" \
+            --latest \
+            --notes "$(printf '```\n%s\n```' "$(cat report.log)")"
+          echo "  ✓ Release $TAG"

@@ -14,7 +14,7 @@
 ## 简介
 
 本仓库为 sing-box 核心提供 .srs 格式规则集，基于 sing-box 官方的 geoip 和 geosite 仓库生成。
-目前为不定期维护状态。
+每月 13 日 13:13（上海时间）由 GitHub Actions 自动更新。
 
 ## 规则集分组说明
 

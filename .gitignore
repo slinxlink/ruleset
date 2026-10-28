@@ -1,11 +1,15 @@
-# 生成脚本
+# 手动生成脚本
 ruleset.sh
+update-local.sh
 
 # 原文件
 source/
 
-# 压缩文件
-*.zip
+# 打包产物
+dist/
+
+# 运行报告
+report.log
 
 # macOS 系统文件
 .DS_Store
